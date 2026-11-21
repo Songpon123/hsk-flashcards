@@ -95,27 +95,23 @@ h1{margin:0;font-size:clamp(1.5rem,4.5vw,2rem);line-height:1.2;font-weight:600;t
 .track{height:4px;background:var(--line);border-radius:4px;overflow:hidden}
 #bar{height:100%;background:var(--jade);width:0;transition:width .25s ease}
 
-/* The card surface (.shell) turns over; the words stay upright and cross-fade while it turns. */
-.card{display:grid;position:relative;cursor:pointer;touch-action:pan-y;user-select:none;-webkit-user-select:none;
-  border-radius:20px;perspective:1600px}
-.shell{grid-area:1/1;background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);
-  transition:transform .5s ease-in-out}
-.card.flipped .shell{transform:rotateY(180deg)}
-.face{grid-area:1/1;position:relative;z-index:1;min-height:24rem;box-sizing:border-box;
-  padding:clamp(1.1rem,4vw,1.75rem);display:flex;flex-direction:column;gap:1rem;min-width:0;
-  transition:opacity .17s ease,visibility .17s}
-.front{transition-delay:.33s}
-.back{opacity:0;visibility:hidden;transition-delay:0s}
-.card.flipped .front{opacity:0;visibility:hidden;transition-delay:0s}
-.card.flipped .back{opacity:1;visibility:visible;transition-delay:.33s}
-.card.no-anim .face,.card.no-anim .shell{transition:none}
-.face-top{display:flex;justify-content:space-between;align-items:center;gap:.5rem;min-height:1.6rem}
+/* One card, revealed in place: the word stays where it is and the answer appears under it. */
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);
+  display:flex;flex-direction:column;overflow:hidden;cursor:pointer;touch-action:pan-y;min-height:24rem}
+.card-top{display:flex;justify-content:space-between;align-items:center;gap:.5rem;min-height:1.6rem;
+  padding:1.1rem clamp(1rem,4vw,1.5rem) 0}
+.card-body{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.85rem;text-align:center;
+  padding:.75rem clamp(1rem,4vw,1.75rem) 1.5rem;min-width:0}
+.card-hint{font-size:.78rem;letter-spacing:.06em;color:var(--ink-2)}
+.card-bottom{display:flex;justify-content:space-between;align-items:center;gap:.75rem;cursor:default;
+  padding:.7rem clamp(1rem,4vw,1.5rem);border-top:1px solid var(--line);background:var(--paper);font-size:.8rem;color:var(--ink-2)}
+.answer{display:flex;flex-direction:column;align-items:center;gap:.8rem;width:100%}
+.answer-rule{width:3.5rem;height:1px;background:var(--line)}
+@media (prefers-reduced-motion:no-preference){.answer,.appear{animation:appear .2s ease-out}}
+@keyframes appear{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 .stamp{font-family:var(--f-py);font-weight:500;font-size:.74rem;letter-spacing:.08em;color:var(--seal);
   border:1.5px solid var(--seal);border-radius:4px;padding:.12rem .45rem;transform:rotate(-3deg)}
 .known-tag{font-size:.75rem;color:var(--jade);background:var(--jade-soft);padding:.12rem .6rem;border-radius:999px}
-.face-main{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;min-width:0}
-.face-foot{display:flex;align-items:center;justify-content:center;gap:.6rem;flex-wrap:wrap}
-.hint{font-size:.82rem;color:var(--ink-2)}
 
 .tzg{display:flex;justify-content:center;align-items:center;gap:.5rem;width:100%}
 .tzg .box{position:relative;flex:0 1 auto;min-width:0;aspect-ratio:1;container-type:inline-size;
@@ -128,11 +124,9 @@ h1{margin:0;font-size:clamp(1.5rem,4.5vw,2rem);line-height:1.2;font-weight:600;t
 .py-big{margin:0;font-family:var(--f-py);font-size:1.55rem;color:var(--jade);letter-spacing:.02em;text-align:center}
 .th-big{margin:0;font-size:clamp(1.6rem,5.5vw,2.3rem);font-weight:600;text-align:center;text-wrap:balance;line-height:1.35}
 
-.back-word{display:flex;align-items:baseline;flex-wrap:wrap;gap:.35rem .8rem}
-.hz-mid{font-family:var(--f-hanzi);font-weight:700;font-size:2.3rem;line-height:1.15}
-.py-mid{font-family:var(--f-py);font-size:1.15rem;color:var(--jade)}
-.th-mean{margin:0;font-size:1.3rem;font-weight:600;line-height:1.4}
-.ex{border-top:1px dashed var(--line);padding-top:.9rem;display:flex;flex-direction:column;gap:.3rem;margin-top:auto}
+.th-mean{margin:0;font-size:1.45rem;font-weight:600;line-height:1.4;text-wrap:balance}
+.ex{width:100%;box-sizing:border-box;text-align:left;background:var(--paper);border:1px solid var(--line);border-radius:14px;
+  padding:.85rem 1rem;display:flex;flex-direction:column;gap:.3rem}
 .ex-label{display:flex;align-items:center;gap:.4rem;font-size:.78rem;color:var(--ink-2);letter-spacing:.04em}
 .ex-zh{margin:0;font-family:var(--f-hanzi);font-size:1.4rem;line-height:1.65;font-weight:500}
 .ex-zh mark{background:var(--mark);color:var(--mark-ink);border-radius:3px;padding:0 .08em}
@@ -145,6 +139,8 @@ h1{margin:0;font-size:clamp(1.5rem,4.5vw,2rem);line-height:1.2;font-weight:600;t
 .speak:hover{border-color:var(--jade);background:var(--jade-soft)}
 .can-speak .speak{display:inline-flex}
 .ex-label .speak{padding:.15rem .5rem}
+.speak:disabled{opacity:.4;cursor:default}
+.speak:disabled:hover{border-color:var(--line);background:var(--card)}
 
 .actions{display:flex;flex-direction:column;gap:.55rem}
 .row{display:grid;gap:.55rem}
@@ -176,11 +172,11 @@ footer p{margin:0;max-width:65ch}
 
 @media (hover:none),(max-width:560px){.keys,.btn kbd{display:none}}
 @media (max-width:420px){
-  .face{min-height:21rem}
+  .card{min-height:21rem}
   .seg-name{font-size:.88rem}
   .row.nav{grid-template-columns:1fr 1.2fr 1fr}
 }
-@media (prefers-reduced-motion:reduce){.face,.shell{transition:none}#bar{transition:none}}
+@media (prefers-reduced-motion:reduce){#bar{transition:none}}
 </style>
 </head>
 <body>
@@ -212,18 +208,19 @@ footer p{margin:0;max-width:65ch}
   <div class="progress">
     <div class="progress-row">
       <span id="count">กำลังโหลดคำศัพท์…</span>
-      <span class="keys"><kbd>Space</kbd> พลิก · <kbd>←</kbd> <kbd>→</kbd> เปลี่ยนบัตร</span>
+      <span class="keys"><kbd>Space</kbd> ดูเฉลย ·<kbd>←</kbd> <kbd>→</kbd> เปลี่ยนบัตร</span>
     </div>
     <div class="track"><div id="bar"></div></div>
   </div>
 
-  <div class="scene" id="scene" hidden>
-    <div class="card" id="card" role="button" tabindex="0" aria-label="บัตรคำ แตะเพื่อพลิก">
-      <div class="shell" aria-hidden="true"></div>
-      <div class="face front" id="front"></div>
-      <div class="face back" id="back"></div>
+  <article class="card" id="card" aria-label="บัตรคำ" hidden>
+    <div class="card-top" id="cardTop"></div>
+    <div class="card-body" id="cardBody" aria-live="polite"></div>
+    <div class="card-bottom">
+      <span id="cardSeq"></span>
+      <button type="button" class="speak" id="speak" aria-label="ฟังเสียงภาษาจีน"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg>ฟังเสียงภาษาจีน</button>
     </div>
-  </div>
+  </article>
 
   <div class="empty" id="empty" hidden>
     <p class="big" id="emptyBig"></p>
@@ -265,7 +262,7 @@ footer p{margin:0;max-width:65ch}
   let known = new Set(store.get("hskfc-known", []));
   let ALL = [], deck = [], idx = 0, flipped = false, rank = new Map(), query = "";
 
-  const card = $("#card"), front = $("#front"), back = $("#back");
+  const card = $("#card"), cardTop = $("#cardTop"), cardBody = $("#cardBody");
   const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
   const fold = (s) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/[\s'’·…-]/g, "");
   const savePrefs = () => store.set("hskfc-prefs", prefs);
@@ -323,19 +320,15 @@ footer p{margin:0;max-width:65ch}
     render();
   }
 
-  function resetFlip() {
-    flipped = false;
-    card.classList.add("no-anim");
-    card.classList.remove("flipped");
-    void card.offsetWidth;
-    requestAnimationFrame(() => card.classList.remove("no-anim"));
-  }
+  function resetFlip() { flipped = false; }
 
   /* ---------- card markup ---------- */
-  function tzg(h) {
+  function tzg(h, small) {
     const chars = [...h];
     const n = chars.filter((c) => c !== "…").length || 1;
-    const bx = n <= 1 ? "9rem" : n === 2 ? "8rem" : n === 3 ? "6.4rem" : "5.2rem";
+    const bx = small
+      ? (n <= 2 ? "5.4rem" : n === 3 ? "4.6rem" : "4rem")
+      : (n <= 1 ? "9rem" : n === 2 ? "8rem" : n === 3 ? "6.4rem" : "5.2rem");
     return `<div class="tzg" lang="zh-CN" style="--n:${n};--bx:${bx}">` +
       chars.map((c) => (c === "…" ? '<span class="dots">…</span>' : `<span class="box"><span class="ch">${esc(c)}</span></span>`)).join("") +
       "</div>";
@@ -346,28 +339,27 @@ footer p{margin:0;max-width:65ch}
     return html;
   }
   function topRow(w) {
-    return `<div class="face-top"><span class="stamp">HSK ${w.lv}</span>${known.has(w.id) ? '<span class="known-tag">จำได้แล้ว</span>' : ""}</div>`;
+    return `<span class="stamp">HSK ${w.lv}</span>${known.has(w.id) ? '<span class="known-tag">จำได้แล้ว</span>' : ""}`;
   }
-  function frontHTML(w) {
-    if (prefs.dir === "th") {
-      return topRow(w) +
-        `<div class="face-main"><p class="th-big">${esc(w.t)}</p></div>` +
-        '<div class="face-foot"><span class="hint">นึกคำภาษาจีนให้ได้ แล้วแตะบัตรเพื่อดูเฉลย</span></div>';
-    }
-    return topRow(w) +
-      `<div class="face-main">${tzg(w.h)}${prefs.pinyin ? `<p class="py-big">${esc(w.p)}</p>` : ""}</div>` +
-      `<div class="face-foot">${speakBtn(w.h, "ฟังเสียงคำนี้")}<span class="hint">แตะบัตรเพื่อดูความหมาย</span></div>`;
-  }
-  function backHTML(w) {
-    return topRow(w) +
-      `<div class="back-word"><span class="hz-mid" lang="zh-CN">${esc(w.h)}</span><span class="py-mid">${esc(w.p)}</span>${speakBtn(w.h, "ฟังเสียงคำนี้", true)}</div>` +
-      `<p class="th-mean">${esc(w.t)}</p>` +
-      '<div class="ex">' +
+  function example(w) {
+    return '<div class="ex">' +
       `<div class="ex-label">ประโยคตัวอย่าง ${speakBtn(w.s, "ฟังเสียงประโยคตัวอย่าง", true)}</div>` +
       `<p class="ex-zh" lang="zh-CN">${highlight(w.s, w.h)}</p>` +
       `<p class="ex-py">${esc(w.sp)}</p>` +
       `<p class="ex-th">${esc(w.st)}</p>` +
       "</div>";
+  }
+  // The question stays where it is; the answer is added underneath it.
+  function bodyHTML(w) {
+    if (prefs.dir === "th") {
+      return `<div class="card-hint">${flipped ? "เฉลย" : "ภาษาจีนพูดว่าอย่างไร?"}</div>` +
+        `<p class="th-big">${esc(w.t)}</p>` +
+        (flipped ? `<div class="answer"><div class="answer-rule"></div>${tzg(w.h, true)}<p class="py-big">${esc(w.p)}</p>${example(w)}</div>` : "");
+    }
+    return `<div class="card-hint">${flipped ? "เฉลย" : "คำนี้แปลว่าอะไร?"}</div>` +
+      tzg(w.h) +
+      (prefs.pinyin || flipped ? `<p class="py-big${prefs.pinyin ? "" : " appear"}">${esc(w.p)}</p>` : "") +
+      (flipped ? `<div class="answer"><div class="answer-rule"></div><p class="th-mean">${esc(w.t)}</p>${example(w)}</div>` : "");
   }
 
   /* ---------- render ---------- */
@@ -395,15 +387,15 @@ footer p{margin:0;max-width:65ch}
     const w = deck[idx];
     $("#count").textContent = deck.length ? `บัตรที่ ${idx + 1} จาก ${deck.length}` : "ไม่มีบัตรในชุดนี้";
     $("#bar").style.width = deck.length ? ((idx + 1) / deck.length) * 100 + "%" : "0%";
-    $("#scene").hidden = !w; $("#actions").hidden = !w; $("#empty").hidden = !!w;
+    card.hidden = !w; $("#actions").hidden = !w; $("#empty").hidden = !!w;
     if (!w) { renderEmpty(); return; }
-    card.classList.toggle("flipped", flipped);
-    front.innerHTML = frontHTML(w);
-    back.innerHTML = backHTML(w);
-    front.setAttribute("aria-hidden", String(flipped));
-    back.setAttribute("aria-hidden", String(!flipped));
-    card.setAttribute("aria-label", flipped ? `เฉลย: ${w.h} ${w.p} ${w.t} แตะเพื่อพลิกกลับ` : "บัตรคำ แตะเพื่อดูเฉลย");
-    $("#flipBtn").textContent = flipped ? "ดูด้านหน้า" : "ดูเฉลย";
+    cardTop.innerHTML = topRow(w);
+    cardBody.innerHTML = bodyHTML(w);
+    $("#cardSeq").textContent = flipped ? "จำคำนี้ได้ไหม? เลือกปุ่มด้านล่าง" : "แตะบัตรเพื่อดูเฉลย";
+    const sp = $("#speak");
+    sp.dataset.say = w.h;
+    sp.disabled = prefs.dir === "th" && !flipped;
+    $("#flipBtn").innerHTML = (flipped ? "ซ่อนเฉลย" : "ดูเฉลย") + " <kbd>Space</kbd>";
     $("#know").innerHTML = (known.has(w.id) ? "<kbd>2</kbd> จำได้แล้ว ✓" : "<kbd>2</kbd> จำได้แล้ว");
   }
   function renderEmpty() {
@@ -454,11 +446,9 @@ footer p{margin:0;max-width:65ch}
   card.addEventListener("click", (e) => {
     const sp = e.target.closest(".speak");
     if (sp) { speak(sp.dataset.say); return; }
+    if (e.target.closest("button, a, .card-bottom")) return;
     if (swiped) { swiped = false; return; }
     flip();
-  });
-  card.addEventListener("keydown", (e) => {
-    if (e.key === "Enter" && !e.target.closest(".speak")) { e.preventDefault(); flip(); }
   });
   document.addEventListener("keydown", (e) => {
     if (e.target.closest("input, textarea") || e.metaKey || e.ctrlKey || e.altKey) return;

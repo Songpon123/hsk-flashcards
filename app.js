@@ -10,7 +10,7 @@
   let known = new Set(store.get("hskfc-known", []));
   let ALL = [], deck = [], idx = 0, flipped = false, rank = new Map(), query = "";
 
-  const card = $("#card"), front = $("#front"), back = $("#back");
+  const card = $("#card"), cardTop = $("#cardTop"), cardBody = $("#cardBody");
   const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
   const fold = (s) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/[\s'’·…-]/g, "");
   const savePrefs = () => store.set("hskfc-prefs", prefs);
@@ -68,19 +68,15 @@
     render();
   }
 
-  function resetFlip() {
-    flipped = false;
-    card.classList.add("no-anim");
-    card.classList.remove("flipped");
-    void card.offsetWidth;
-    requestAnimationFrame(() => card.classList.remove("no-anim"));
-  }
+  function resetFlip() { flipped = false; }
 
   /* ---------- card markup ---------- */
-  function tzg(h) {
+  function tzg(h, small) {
     const chars = [...h];
     const n = chars.filter((c) => c !== "…").length || 1;
-    const bx = n <= 1 ? "9rem" : n === 2 ? "8rem" : n === 3 ? "6.4rem" : "5.2rem";
+    const bx = small
+      ? (n <= 2 ? "5.4rem" : n === 3 ? "4.6rem" : "4rem")
+      : (n <= 1 ? "9rem" : n === 2 ? "8rem" : n === 3 ? "6.4rem" : "5.2rem");
     return `<div class="tzg" lang="zh-CN" style="--n:${n};--bx:${bx}">` +
       chars.map((c) => (c === "…" ? '<span class="dots">…</span>' : `<span class="box"><span class="ch">${esc(c)}</span></span>`)).join("") +
       "</div>";
@@ -91,28 +87,27 @@
     return html;
   }
   function topRow(w) {
-    return `<div class="face-top"><span class="stamp">HSK ${w.lv}</span>${known.has(w.id) ? '<span class="known-tag">จำได้แล้ว</span>' : ""}</div>`;
+    return `<span class="stamp">HSK ${w.lv}</span>${known.has(w.id) ? '<span class="known-tag">จำได้แล้ว</span>' : ""}`;
   }
-  function frontHTML(w) {
-    if (prefs.dir === "th") {
-      return topRow(w) +
-        `<div class="face-main"><p class="th-big">${esc(w.t)}</p></div>` +
-        '<div class="face-foot"><span class="hint">นึกคำภาษาจีนให้ได้ แล้วแตะบัตรเพื่อดูเฉลย</span></div>';
-    }
-    return topRow(w) +
-      `<div class="face-main">${tzg(w.h)}${prefs.pinyin ? `<p class="py-big">${esc(w.p)}</p>` : ""}</div>` +
-      `<div class="face-foot">${speakBtn(w.h, "ฟังเสียงคำนี้")}<span class="hint">แตะบัตรเพื่อดูความหมาย</span></div>`;
-  }
-  function backHTML(w) {
-    return topRow(w) +
-      `<div class="back-word"><span class="hz-mid" lang="zh-CN">${esc(w.h)}</span><span class="py-mid">${esc(w.p)}</span>${speakBtn(w.h, "ฟังเสียงคำนี้", true)}</div>` +
-      `<p class="th-mean">${esc(w.t)}</p>` +
-      '<div class="ex">' +
+  function example(w) {
+    return '<div class="ex">' +
       `<div class="ex-label">ประโยคตัวอย่าง ${speakBtn(w.s, "ฟังเสียงประโยคตัวอย่าง", true)}</div>` +
       `<p class="ex-zh" lang="zh-CN">${highlight(w.s, w.h)}</p>` +
       `<p class="ex-py">${esc(w.sp)}</p>` +
       `<p class="ex-th">${esc(w.st)}</p>` +
       "</div>";
+  }
+  // The question stays where it is; the answer is added underneath it.
+  function bodyHTML(w) {
+    if (prefs.dir === "th") {
+      return `<div class="card-hint">${flipped ? "เฉลย" : "ภาษาจีนพูดว่าอย่างไร?"}</div>` +
+        `<p class="th-big">${esc(w.t)}</p>` +
+        (flipped ? `<div class="answer"><div class="answer-rule"></div>${tzg(w.h, true)}<p class="py-big">${esc(w.p)}</p>${example(w)}</div>` : "");
+    }
+    return `<div class="card-hint">${flipped ? "เฉลย" : "คำนี้แปลว่าอะไร?"}</div>` +
+      tzg(w.h) +
+      (prefs.pinyin || flipped ? `<p class="py-big${prefs.pinyin ? "" : " appear"}">${esc(w.p)}</p>` : "") +
+      (flipped ? `<div class="answer"><div class="answer-rule"></div><p class="th-mean">${esc(w.t)}</p>${example(w)}</div>` : "");
   }
 
   /* ---------- render ---------- */
@@ -140,15 +135,15 @@
     const w = deck[idx];
     $("#count").textContent = deck.length ? `บัตรที่ ${idx + 1} จาก ${deck.length}` : "ไม่มีบัตรในชุดนี้";
     $("#bar").style.width = deck.length ? ((idx + 1) / deck.length) * 100 + "%" : "0%";
-    $("#scene").hidden = !w; $("#actions").hidden = !w; $("#empty").hidden = !!w;
+    card.hidden = !w; $("#actions").hidden = !w; $("#empty").hidden = !!w;
     if (!w) { renderEmpty(); return; }
-    card.classList.toggle("flipped", flipped);
-    front.innerHTML = frontHTML(w);
-    back.innerHTML = backHTML(w);
-    front.setAttribute("aria-hidden", String(flipped));
-    back.setAttribute("aria-hidden", String(!flipped));
-    card.setAttribute("aria-label", flipped ? `เฉลย: ${w.h} ${w.p} ${w.t} แตะเพื่อพลิกกลับ` : "บัตรคำ แตะเพื่อดูเฉลย");
-    $("#flipBtn").textContent = flipped ? "ดูด้านหน้า" : "ดูเฉลย";
+    cardTop.innerHTML = topRow(w);
+    cardBody.innerHTML = bodyHTML(w);
+    $("#cardSeq").textContent = flipped ? "จำคำนี้ได้ไหม? เลือกปุ่มด้านล่าง" : "แตะบัตรเพื่อดูเฉลย";
+    const sp = $("#speak");
+    sp.dataset.say = w.h;
+    sp.disabled = prefs.dir === "th" && !flipped;
+    $("#flipBtn").innerHTML = (flipped ? "ซ่อนเฉลย" : "ดูเฉลย") + " <kbd>Space</kbd>";
     $("#know").innerHTML = (known.has(w.id) ? "<kbd>2</kbd> จำได้แล้ว ✓" : "<kbd>2</kbd> จำได้แล้ว");
   }
   function renderEmpty() {
@@ -199,11 +194,9 @@
   card.addEventListener("click", (e) => {
     const sp = e.target.closest(".speak");
     if (sp) { speak(sp.dataset.say); return; }
+    if (e.target.closest("button, a, .card-bottom")) return;
     if (swiped) { swiped = false; return; }
     flip();
-  });
-  card.addEventListener("keydown", (e) => {
-    if (e.key === "Enter" && !e.target.closest(".speak")) { e.preventDefault(); flip(); }
   });
   document.addEventListener("keydown", (e) => {
     if (e.target.closest("input, textarea") || e.metaKey || e.ctrlKey || e.altKey) return;
