@@ -89,15 +89,20 @@ h1{margin:0;font-size:clamp(1.5rem,4.5vw,2rem);line-height:1.2;font-weight:600;t
 .track{height:4px;background:var(--line);border-radius:4px;overflow:hidden}
 #bar{height:100%;background:var(--jade);width:0;transition:width .25s ease}
 
-.scene{perspective:1600px}
-.card{display:grid;position:relative;transform-style:preserve-3d;transition:transform .55s cubic-bezier(.2,.75,.25,1);
-  cursor:pointer;touch-action:pan-y;user-select:none;-webkit-user-select:none;border-radius:20px}
-.card.no-anim{transition:none}
-.card.flipped{transform:rotateY(180deg)}
-.face{grid-area:1/1;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:var(--card);
-  border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);min-height:24rem;box-sizing:border-box;
-  padding:clamp(1.1rem,4vw,1.75rem);display:flex;flex-direction:column;gap:1rem;min-width:0}
-.back{transform:rotateY(180deg)}
+/* The card surface (.shell) turns over; the words stay upright and cross-fade while it turns. */
+.card{display:grid;position:relative;cursor:pointer;touch-action:pan-y;user-select:none;-webkit-user-select:none;
+  border-radius:20px;perspective:1600px}
+.shell{grid-area:1/1;background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);
+  transition:transform .5s ease-in-out}
+.card.flipped .shell{transform:rotateY(180deg)}
+.face{grid-area:1/1;position:relative;z-index:1;min-height:24rem;box-sizing:border-box;
+  padding:clamp(1.1rem,4vw,1.75rem);display:flex;flex-direction:column;gap:1rem;min-width:0;
+  transition:opacity .17s ease,visibility .17s}
+.front{transition-delay:.33s}
+.back{opacity:0;visibility:hidden;transition-delay:0s}
+.card.flipped .front{opacity:0;visibility:hidden;transition-delay:0s}
+.card.flipped .back{opacity:1;visibility:visible;transition-delay:.33s}
+.card.no-anim .face,.card.no-anim .shell{transition:none}
 .face-top{display:flex;justify-content:space-between;align-items:center;gap:.5rem;min-height:1.6rem}
 .stamp{font-family:var(--f-py);font-weight:500;font-size:.74rem;letter-spacing:.08em;color:var(--seal);
   border:1.5px solid var(--seal);border-radius:4px;padding:.12rem .45rem;transform:rotate(-3deg)}
@@ -169,7 +174,7 @@ footer p{margin:0;max-width:65ch}
   .seg-name{font-size:.88rem}
   .row.nav{grid-template-columns:1fr 1.2fr 1fr}
 }
-@media (prefers-reduced-motion:reduce){.card{transition:none}#bar{transition:none}}
+@media (prefers-reduced-motion:reduce){.face,.shell{transition:none}#bar{transition:none}}
 </style>
 
 <div class="wrap">
@@ -207,6 +212,7 @@ footer p{margin:0;max-width:65ch}
 
   <div class="scene" id="scene" hidden>
     <div class="card" id="card" role="button" tabindex="0" aria-label="บัตรคำ แตะเพื่อพลิก">
+      <div class="shell" aria-hidden="true"></div>
       <div class="face front" id="front"></div>
       <div class="face back" id="back"></div>
     </div>
