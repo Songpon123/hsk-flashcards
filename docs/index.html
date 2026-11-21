@@ -1,0 +1,532 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="บัตรคำศัพท์ภาษาจีน HSK 1–3 พร้อมพินอิน คำแปลไทย และประโยคตัวอย่าง">
+<title>บัตรคำศัพท์ HSK 1–3</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600&family=Noto+Sans:wght@400;500&family=Noto+Serif+SC:wght@500;700&display=swap">
+<style>
+/* Layout: one study column. Level picker, options, progress, a single card with 田字格 practice boxes, then actions. */
+:root{
+  --paper:#F2F5F1; --card:#FFFFFF; --ink:#17231F; --ink-2:#56675F; --line:#D6DFD9;
+  --jade:#1F6F5C; --jade-ink:#FFFFFF; --jade-soft:#E2EFE9;
+  --seal:#B5392A; --seal-soft:#F8E6E2;
+  --grid:#E5B3AA; --grid-edge:#D08E83;
+  --mark:#FBEFC4; --mark-ink:#4F3B00;
+  --shadow:0 1px 2px rgba(23,35,31,.06),0 14px 34px -14px rgba(23,35,31,.22);
+  --f-hanzi:"Noto Serif SC","Songti SC","STSong","SimSun",serif;
+  --f-thai:"IBM Plex Sans Thai","Thonburi","Leelawadee UI","Tahoma",sans-serif;
+  --f-py:"Noto Sans","Helvetica Neue",Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0E1412; --card:#18201D; --ink:#E6EDE9; --ink-2:#9BAEA6; --line:#2B3732;
+    --jade:#62C3A7; --jade-ink:#0B1A15; --jade-soft:#1B3029;
+    --seal:#E8796A; --seal-soft:#371F1B;
+    --grid:#5B3B35; --grid-edge:#7D4C43;
+    --mark:#4A3C10; --mark-ink:#F6E3A4;
+    --shadow:0 1px 2px rgba(0,0,0,.45),0 14px 34px -14px rgba(0,0,0,.7);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0E1412; --card:#18201D; --ink:#E6EDE9; --ink-2:#9BAEA6; --line:#2B3732;
+  --jade:#62C3A7; --jade-ink:#0B1A15; --jade-soft:#1B3029;
+  --seal:#E8796A; --seal-soft:#371F1B;
+  --grid:#5B3B35; --grid-edge:#7D4C43;
+  --mark:#4A3C10; --mark-ink:#F6E3A4;
+  --shadow:0 1px 2px rgba(0,0,0,.45),0 14px 34px -14px rgba(0,0,0,.7);
+  color-scheme:dark;
+}
+[hidden]{display:none!important}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--f-thai);font-size:16px;line-height:1.55}
+button,input{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--jade);outline-offset:2px}
+
+.wrap{max-width:46rem;margin:0 auto;padding-block:1.5rem 3rem;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+  display:flex;flex-direction:column;gap:1.1rem}
+
+header{display:flex;flex-direction:column;gap:.15rem}
+.eyebrow{font-family:var(--f-hanzi);color:var(--seal);font-size:.9rem;letter-spacing:.12em}
+h1{margin:0;font-size:clamp(1.5rem,4.5vw,2rem);line-height:1.2;font-weight:600;text-wrap:balance}
+.lede{margin:0;color:var(--ink-2);font-size:.95rem}
+
+.levels{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.3rem;background:var(--card);
+  border:1px solid var(--line);border-radius:14px;padding:.3rem}
+.seg{border:0;background:transparent;border-radius:10px;padding:.5rem .2rem;cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;gap:.05rem;color:var(--ink-2);min-width:0}
+.seg:hover{background:var(--jade-soft)}
+.seg[aria-pressed="true"]{background:var(--jade);color:var(--jade-ink)}
+.seg-name{font-weight:600;font-size:.95rem;color:inherit}
+.seg[aria-pressed="false"] .seg-name{color:var(--ink)}
+.seg-meta{font-size:.72rem;font-variant-numeric:tabular-nums;white-space:nowrap}
+
+.opts{display:flex;flex-wrap:wrap;gap:.45rem}
+.chip{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:.38rem .85rem;
+  cursor:pointer;font-size:.9rem;display:inline-flex;align-items:center;gap:.4rem}
+.chip:hover{border-color:var(--jade)}
+.chip[aria-pressed="true"]{background:var(--jade-soft);border-color:var(--jade);color:var(--jade);font-weight:500}
+.chip .tick{width:.9rem;height:.9rem;border:1.5px solid currentColor;border-radius:4px;display:inline-grid;place-items:center;opacity:.7}
+.chip[aria-pressed="true"] .tick{background:var(--jade);border-color:var(--jade);opacity:1}
+.chip[aria-pressed="true"] .tick::after{content:"";width:.42rem;height:.22rem;border-left:2px solid var(--jade-ink);border-bottom:2px solid var(--jade-ink);transform:translateY(-1px) rotate(-45deg)}
+.pair{display:inline-flex;border:1px solid var(--line);border-radius:999px;background:var(--card);padding:2px}
+.pair .chip{border:0;padding:.33rem .8rem}
+.pair .chip[aria-pressed="true"]{background:var(--jade);color:var(--jade-ink)}
+
+.search{position:relative}
+.search input{width:100%;box-sizing:border-box;border:1px solid var(--line);background:var(--card);border-radius:12px;
+  padding:.6rem 2.6rem .6rem 2.4rem;font-size:.95rem}
+.search input::placeholder{color:var(--ink-2)}
+.search svg{position:absolute;left:.8rem;top:50%;transform:translateY(-50%);width:1.05rem;height:1.05rem;color:var(--ink-2);pointer-events:none}
+.search .clear{position:absolute;right:.35rem;top:50%;transform:translateY(-50%);border:0;background:transparent;cursor:pointer;
+  color:var(--ink-2);padding:.35rem .55rem;border-radius:8px;font-size:.85rem}
+.search .clear:hover{background:var(--jade-soft)}
+
+.progress{display:flex;flex-direction:column;gap:.4rem}
+.progress-row{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;font-size:.9rem;color:var(--ink-2)}
+#count{font-variant-numeric:tabular-nums;color:var(--ink);font-weight:500}
+.keys{font-size:.78rem}
+.keys kbd,.btn kbd{font-family:var(--f-py);font-size:.72rem;border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:0 .35rem;background:var(--card);color:var(--ink-2)}
+.track{height:4px;background:var(--line);border-radius:4px;overflow:hidden}
+#bar{height:100%;background:var(--jade);width:0;transition:width .25s ease}
+
+.scene{perspective:1600px}
+.card{display:grid;position:relative;transform-style:preserve-3d;transition:transform .55s cubic-bezier(.2,.75,.25,1);
+  cursor:pointer;touch-action:pan-y;user-select:none;-webkit-user-select:none;border-radius:20px}
+.card.no-anim{transition:none}
+.card.flipped{transform:rotateY(180deg)}
+.face{grid-area:1/1;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:var(--card);
+  border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);min-height:24rem;box-sizing:border-box;
+  padding:clamp(1.1rem,4vw,1.75rem);display:flex;flex-direction:column;gap:1rem;min-width:0}
+.back{transform:rotateY(180deg)}
+.face-top{display:flex;justify-content:space-between;align-items:center;gap:.5rem;min-height:1.6rem}
+.stamp{font-family:var(--f-py);font-weight:500;font-size:.74rem;letter-spacing:.08em;color:var(--seal);
+  border:1.5px solid var(--seal);border-radius:4px;padding:.12rem .45rem;transform:rotate(-3deg)}
+.known-tag{font-size:.75rem;color:var(--jade);background:var(--jade-soft);padding:.12rem .6rem;border-radius:999px}
+.face-main{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;min-width:0}
+.face-foot{display:flex;align-items:center;justify-content:center;gap:.6rem;flex-wrap:wrap}
+.hint{font-size:.82rem;color:var(--ink-2)}
+
+.tzg{display:flex;justify-content:center;align-items:center;gap:.5rem;width:100%}
+.tzg .box{position:relative;flex:0 1 auto;min-width:0;aspect-ratio:1;container-type:inline-size;
+  width:min(var(--bx),calc((100% - (var(--n) - 1) * .5rem) / var(--n)));
+  border:1.5px solid var(--grid-edge);display:grid;place-items:center;box-sizing:border-box}
+.tzg .box::before{content:"";position:absolute;left:50%;top:0;bottom:0;border-left:1px dashed var(--grid)}
+.tzg .box::after{content:"";position:absolute;top:50%;left:0;right:0;border-top:1px dashed var(--grid)}
+.tzg .ch{position:relative;z-index:1;font-family:var(--f-hanzi);font-weight:500;line-height:1;font-size:3.5rem;font-size:72cqi}
+.tzg .dots{font-family:var(--f-hanzi);color:var(--ink-2);font-size:1.6rem;flex:none}
+.py-big{margin:0;font-family:var(--f-py);font-size:1.55rem;color:var(--jade);letter-spacing:.02em;text-align:center}
+.th-big{margin:0;font-size:clamp(1.6rem,5.5vw,2.3rem);font-weight:600;text-align:center;text-wrap:balance;line-height:1.35}
+
+.back-word{display:flex;align-items:baseline;flex-wrap:wrap;gap:.35rem .8rem}
+.hz-mid{font-family:var(--f-hanzi);font-weight:700;font-size:2.3rem;line-height:1.15}
+.py-mid{font-family:var(--f-py);font-size:1.15rem;color:var(--jade)}
+.th-mean{margin:0;font-size:1.3rem;font-weight:600;line-height:1.4}
+.ex{border-top:1px dashed var(--line);padding-top:.9rem;display:flex;flex-direction:column;gap:.3rem;margin-top:auto}
+.ex-label{display:flex;align-items:center;gap:.4rem;font-size:.78rem;color:var(--ink-2);letter-spacing:.04em}
+.ex-zh{margin:0;font-family:var(--f-hanzi);font-size:1.4rem;line-height:1.65;font-weight:500}
+.ex-zh mark{background:var(--mark);color:var(--mark-ink);border-radius:3px;padding:0 .08em}
+.ex-py{margin:0;font-family:var(--f-py);font-size:.95rem;color:var(--ink-2)}
+.ex-th{margin:0;font-size:1.02rem}
+
+.speak{display:none;align-items:center;gap:.35rem;border:1px solid var(--line);background:var(--card);color:var(--jade);
+  border-radius:999px;padding:.28rem .7rem;cursor:pointer;font-size:.8rem}
+.speak svg{width:1rem;height:1rem}
+.speak:hover{border-color:var(--jade);background:var(--jade-soft)}
+.can-speak .speak{display:inline-flex}
+.ex-label .speak{padding:.15rem .5rem}
+
+.actions{display:flex;flex-direction:column;gap:.55rem}
+.row{display:grid;gap:.55rem}
+.row.nav{grid-template-columns:1fr 1.4fr 1fr}
+.row.marks{grid-template-columns:1fr 1fr}
+.btn{border:1px solid var(--line);background:var(--card);border-radius:12px;padding:.72rem .8rem;cursor:pointer;
+  display:inline-flex;align-items:center;justify-content:center;gap:.45rem;font-weight:500;min-width:0}
+.btn:hover{border-color:var(--jade)}
+.btn-flip{border-color:var(--jade);color:var(--jade)}
+.btn-miss{background:var(--seal-soft);border-color:transparent;color:var(--seal)}
+.btn-miss:hover{border-color:var(--seal)}
+.btn-know{background:var(--jade);border-color:var(--jade);color:var(--jade-ink)}
+.btn-know:hover{filter:brightness(1.08)}
+.btn-miss kbd,.btn-know kbd{background:transparent;color:inherit;border-color:currentColor;opacity:.7}
+
+.empty{background:var(--card);border:1px dashed var(--line);border-radius:20px;padding:2.5rem 1.25rem;text-align:center;
+  display:flex;flex-direction:column;align-items:center;gap:.8rem}
+.empty p{margin:0;color:var(--ink-2)}
+.empty .big{font-size:1.15rem;color:var(--ink);font-weight:600}
+
+footer{display:flex;flex-direction:column;gap:.6rem;font-size:.82rem;color:var(--ink-2);border-top:1px solid var(--line);padding-top:1rem}
+footer p{margin:0;max-width:65ch}
+.linkbtn{align-self:flex-start;border:1px solid var(--line);background:transparent;border-radius:999px;padding:.3rem .8rem;cursor:pointer;color:var(--ink-2);font-size:.8rem}
+.linkbtn.armed{border-color:var(--seal);color:var(--seal)}
+
+.toast{position:fixed;left:50%;bottom:calc(1.25rem + env(safe-area-inset-bottom,0px));transform:translateX(-50%);
+  background:var(--ink);color:var(--paper);padding:.55rem 1rem;border-radius:999px;font-size:.88rem;z-index:20;
+  max-width:calc(100% - 32px);text-align:center;box-shadow:var(--shadow)}
+
+@media (hover:none),(max-width:560px){.keys,.btn kbd{display:none}}
+@media (max-width:420px){
+  .face{min-height:21rem}
+  .seg-name{font-size:.88rem}
+  .row.nav{grid-template-columns:1fr 1.2fr 1fr}
+}
+@media (prefers-reduced-motion:reduce){.card{transition:none}#bar{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="eyebrow" lang="zh-CN">汉语水平考试 · 一级至三级</span>
+    <h1>บัตรคำศัพท์ HSK 1–3</h1>
+    <p class="lede" id="lede">คำศัพท์ภาษาจีนพร้อมพินอิน คำแปลไทย และประโยคตัวอย่าง</p>
+  </header>
+
+  <div class="levels" id="levels" role="group" aria-label="เลือกระดับ"></div>
+
+  <div class="opts">
+    <span class="pair" role="group" aria-label="ด้านหน้าบัตร">
+      <button type="button" class="chip" id="dirZh" data-dir="zh">จีน → ไทย</button>
+      <button type="button" class="chip" id="dirTh" data-dir="th">ไทย → จีน</button>
+    </span>
+    <button type="button" class="chip" id="optPinyin"><span class="tick"></span>พินอินด้านหน้า</button>
+    <button type="button" class="chip" id="optNew"><span class="tick"></span>เฉพาะคำที่ยังไม่แม่น</button>
+    <button type="button" class="chip" id="optShuffle"><span class="tick"></span>สุ่มลำดับ</button>
+  </div>
+
+  <div class="search">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+    <input id="q" type="search" placeholder="ค้นหาด้วยตัวจีน พินอิน หรือคำไทย" autocomplete="off" aria-label="ค้นหาคำศัพท์">
+    <button type="button" class="clear" id="qClear" hidden>ล้าง</button>
+  </div>
+
+  <div class="progress">
+    <div class="progress-row">
+      <span id="count">กำลังโหลดคำศัพท์…</span>
+      <span class="keys"><kbd>Space</kbd> พลิก · <kbd>←</kbd> <kbd>→</kbd> เปลี่ยนบัตร</span>
+    </div>
+    <div class="track"><div id="bar"></div></div>
+  </div>
+
+  <div class="scene" id="scene" hidden>
+    <div class="card" id="card" role="button" tabindex="0" aria-label="บัตรคำ แตะเพื่อพลิก">
+      <div class="face front" id="front"></div>
+      <div class="face back" id="back"></div>
+    </div>
+  </div>
+
+  <div class="empty" id="empty" hidden>
+    <p class="big" id="emptyBig"></p>
+    <p id="emptyMsg"></p>
+    <button type="button" class="btn" id="emptyAction" hidden></button>
+  </div>
+
+  <div class="actions" id="actions" hidden>
+    <div class="row nav">
+      <button type="button" class="btn" id="prev" aria-label="บัตรก่อนหน้า">← ก่อนหน้า</button>
+      <button type="button" class="btn btn-flip" id="flipBtn">ดูเฉลย</button>
+      <button type="button" class="btn" id="next" aria-label="บัตรถัดไป">ถัดไป →</button>
+    </div>
+    <div class="row marks">
+      <button type="button" class="btn btn-miss" id="miss"><kbd>1</kbd> ยังไม่แม่น</button>
+      <button type="button" class="btn btn-know" id="know"><kbd>2</kbd> จำได้แล้ว</button>
+    </div>
+  </div>
+
+  <footer>
+    <p>อ้างอิงรายการคำศัพท์ HSK มาตรฐานเดิม (HSK 2.0) ระดับ 1–3 ประโยคตัวอย่างและคำแปลไทยเรียบเรียงขึ้นสำหรับชุดนี้ ปุ่มฟังเสียงจะแสดงเมื่อเครื่องของคุณมีเสียงอ่านภาษาจีน</p>
+    <p>สถานะ “จำได้แล้ว” บันทึกไว้ในเบราว์เซอร์นี้เท่านั้น</p>
+    <button type="button" class="linkbtn" id="reset">ล้างสถานะจำได้ของระดับที่เลือก</button>
+  </footer>
+</div>
+<div class="toast" id="toast" role="status" hidden></div>
+
+
+<script>
+(() => {
+  "use strict";
+  const $ = (s) => document.querySelector(s);
+  const store = {
+    get(k, d) { try { const v = localStorage.getItem(k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } },
+    set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { /* storage unavailable */ } },
+  };
+
+  const prefs = Object.assign({ level: "all", dir: "zh", pinyin: true, onlyNew: false, shuffle: false }, store.get("hskfc-prefs", {}));
+  let known = new Set(store.get("hskfc-known", []));
+  let ALL = [], deck = [], idx = 0, flipped = false, rank = new Map(), query = "";
+
+  const card = $("#card"), front = $("#front"), back = $("#back");
+  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const fold = (s) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/[\s'’·…-]/g, "");
+  const savePrefs = () => store.set("hskfc-prefs", prefs);
+  const saveKnown = () => store.set("hskfc-known", [...known]);
+
+  /* ---------- speech ---------- */
+  const synth = "speechSynthesis" in window ? window.speechSynthesis : null;
+  let zhVoice = null;
+  function pickVoice() {
+    if (!synth) return;
+    let vs = [];
+    try { vs = synth.getVoices(); } catch (e) { vs = []; }
+    zhVoice = vs.find((v) => /zh[-_]CN/i.test(v.lang)) || vs.find((v) => /^zh/i.test(v.lang) && !/HK|TW/i.test(v.lang)) || vs.find((v) => /^zh/i.test(v.lang)) || null;
+    document.documentElement.classList.toggle("can-speak", !!zhVoice);
+  }
+  if (synth) { pickVoice(); try { synth.addEventListener("voiceschanged", pickVoice); } catch (e) { synth.onvoiceschanged = pickVoice; } }
+  function speak(text) {
+    if (!synth || !zhVoice) return;
+    try {
+      synth.cancel();
+      const u = new SpeechSynthesisUtterance(text.replace(/…/g, "，"));
+      u.lang = "zh-CN"; u.voice = zhVoice; u.rate = 0.82;
+      synth.speak(u);
+    } catch (e) { /* speech unavailable */ }
+  }
+  const ICON_SPEAK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg>';
+  const speakBtn = (text, label, short) => `<button type="button" class="speak" data-say="${esc(text)}" aria-label="${esc(label)}">${ICON_SPEAK}${short ? "" : "ฟังเสียง"}</button>`;
+
+  /* ---------- toast ---------- */
+  let toastTimer = 0;
+  function toast(msg) {
+    const t = $("#toast");
+    t.textContent = msg; t.hidden = false;
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => { t.hidden = true; }, 2200);
+  }
+
+  /* ---------- deck ---------- */
+  const rankOf = (w) => { if (!rank.has(w.id)) rank.set(w.id, Math.random()); return rank.get(w.id); };
+  function buildDeck(mode) {
+    const curId = deck[idx] && deck[idx].id;
+    let d = ALL.filter((w) => prefs.level === "all" || w.lv === Number(prefs.level));
+    if (prefs.onlyNew) d = d.filter((w) => !known.has(w.id));
+    const raw = query.trim();
+    if (raw) {
+      const q = fold(raw);
+      d = d.filter((w) => w.h.includes(raw) || w.t.includes(raw) || (q && fold(w.p).includes(q)));
+    }
+    if (prefs.shuffle) d = d.slice().sort((a, b) => rankOf(a) - rankOf(b));
+    deck = d;
+    if (mode === "keepId") { const i = deck.findIndex((w) => w.id === curId); idx = i < 0 ? 0 : i; }
+    else if (mode === "keepPos") idx = Math.min(idx, Math.max(0, deck.length - 1));
+    else idx = 0;
+    resetFlip();
+    render();
+  }
+
+  function resetFlip() {
+    flipped = false;
+    card.classList.add("no-anim");
+    card.classList.remove("flipped");
+    void card.offsetWidth;
+    requestAnimationFrame(() => card.classList.remove("no-anim"));
+  }
+
+  /* ---------- card markup ---------- */
+  function tzg(h) {
+    const chars = [...h];
+    const n = chars.filter((c) => c !== "…").length || 1;
+    const bx = n <= 1 ? "9rem" : n === 2 ? "8rem" : n === 3 ? "6.4rem" : "5.2rem";
+    return `<div class="tzg" lang="zh-CN" style="--n:${n};--bx:${bx}">` +
+      chars.map((c) => (c === "…" ? '<span class="dots">…</span>' : `<span class="box"><span class="ch">${esc(c)}</span></span>`)).join("") +
+      "</div>";
+  }
+  function highlight(s, h) {
+    let html = esc(s);
+    h.split("…").filter(Boolean).forEach((p) => { html = html.split(esc(p)).join(`<mark>${esc(p)}</mark>`); });
+    return html;
+  }
+  function topRow(w) {
+    return `<div class="face-top"><span class="stamp">HSK ${w.lv}</span>${known.has(w.id) ? '<span class="known-tag">จำได้แล้ว</span>' : ""}</div>`;
+  }
+  function frontHTML(w) {
+    if (prefs.dir === "th") {
+      return topRow(w) +
+        `<div class="face-main"><p class="th-big">${esc(w.t)}</p></div>` +
+        '<div class="face-foot"><span class="hint">นึกคำภาษาจีนให้ได้ แล้วแตะบัตรเพื่อดูเฉลย</span></div>';
+    }
+    return topRow(w) +
+      `<div class="face-main">${tzg(w.h)}${prefs.pinyin ? `<p class="py-big">${esc(w.p)}</p>` : ""}</div>` +
+      `<div class="face-foot">${speakBtn(w.h, "ฟังเสียงคำนี้")}<span class="hint">แตะบัตรเพื่อดูความหมาย</span></div>`;
+  }
+  function backHTML(w) {
+    return topRow(w) +
+      `<div class="back-word"><span class="hz-mid" lang="zh-CN">${esc(w.h)}</span><span class="py-mid">${esc(w.p)}</span>${speakBtn(w.h, "ฟังเสียงคำนี้", true)}</div>` +
+      `<p class="th-mean">${esc(w.t)}</p>` +
+      '<div class="ex">' +
+      `<div class="ex-label">ประโยคตัวอย่าง ${speakBtn(w.s, "ฟังเสียงประโยคตัวอย่าง", true)}</div>` +
+      `<p class="ex-zh" lang="zh-CN">${highlight(w.s, w.h)}</p>` +
+      `<p class="ex-py">${esc(w.sp)}</p>` +
+      `<p class="ex-th">${esc(w.st)}</p>` +
+      "</div>";
+  }
+
+  /* ---------- render ---------- */
+  function renderLevels() {
+    const opts = [["all", "ทั้งหมด"], ["1", "HSK 1"], ["2", "HSK 2"], ["3", "HSK 3"]];
+    $("#levels").innerHTML = opts.map(([v, label]) => {
+      const words = v === "all" ? ALL : ALL.filter((w) => w.lv === Number(v));
+      const k = words.reduce((a, w) => a + (known.has(w.id) ? 1 : 0), 0);
+      return `<button type="button" class="seg" data-level="${v}" aria-pressed="${String(prefs.level) === v}">` +
+        `<span class="seg-name">${label}</span><span class="seg-meta">จำได้ ${k}/${words.length}</span></button>`;
+    }).join("");
+  }
+  function renderOpts() {
+    $("#dirZh").setAttribute("aria-pressed", prefs.dir === "zh");
+    $("#dirTh").setAttribute("aria-pressed", prefs.dir === "th");
+    $("#optPinyin").setAttribute("aria-pressed", !!prefs.pinyin);
+    $("#optPinyin").disabled = prefs.dir === "th";
+    $("#optPinyin").style.opacity = prefs.dir === "th" ? ".5" : "";
+    $("#optNew").setAttribute("aria-pressed", !!prefs.onlyNew);
+    $("#optShuffle").setAttribute("aria-pressed", !!prefs.shuffle);
+  }
+  function render() {
+    renderLevels();
+    renderOpts();
+    const w = deck[idx];
+    $("#count").textContent = deck.length ? `บัตรที่ ${idx + 1} จาก ${deck.length}` : "ไม่มีบัตรในชุดนี้";
+    $("#bar").style.width = deck.length ? ((idx + 1) / deck.length) * 100 + "%" : "0%";
+    $("#scene").hidden = !w; $("#actions").hidden = !w; $("#empty").hidden = !!w;
+    if (!w) { renderEmpty(); return; }
+    card.classList.toggle("flipped", flipped);
+    front.innerHTML = frontHTML(w);
+    back.innerHTML = backHTML(w);
+    front.setAttribute("aria-hidden", String(flipped));
+    back.setAttribute("aria-hidden", String(!flipped));
+    card.setAttribute("aria-label", flipped ? `เฉลย: ${w.h} ${w.p} ${w.t} แตะเพื่อพลิกกลับ` : "บัตรคำ แตะเพื่อดูเฉลย");
+    $("#flipBtn").textContent = flipped ? "ดูด้านหน้า" : "ดูเฉลย";
+    $("#know").innerHTML = (known.has(w.id) ? "<kbd>2</kbd> จำได้แล้ว ✓" : "<kbd>2</kbd> จำได้แล้ว");
+  }
+  function renderEmpty() {
+    const action = $("#emptyAction");
+    action.hidden = true;
+    if (query.trim()) {
+      $("#emptyBig").textContent = `ไม่พบคำที่ตรงกับ “${query.trim()}”`;
+      $("#emptyMsg").textContent = "ลองค้นด้วยตัวจีน พินอินแบบไม่ใส่วรรณยุกต์ (เช่น xuexi) หรือคำไทย";
+      action.textContent = "ล้างคำค้นหา"; action.hidden = false; action.dataset.do = "clear";
+    } else if (prefs.onlyNew) {
+      $("#emptyBig").textContent = "จำได้ครบทุกคำในชุดนี้แล้ว";
+      $("#emptyMsg").textContent = "ปิดตัวกรอง “เฉพาะคำที่ยังไม่แม่น” เพื่อทบทวนทุกคำอีกรอบ";
+      action.textContent = "แสดงทุกคำ"; action.hidden = false; action.dataset.do = "all";
+    } else {
+      $("#emptyBig").textContent = "ยังไม่มีคำศัพท์";
+      $("#emptyMsg").textContent = "";
+    }
+  }
+
+  /* ---------- actions ---------- */
+  function flip() { if (!deck.length) return; flipped = !flipped; render(); }
+  function go(d) {
+    if (!deck.length) return;
+    const next = idx + d;
+    if (next >= deck.length) toast("ครบรอบแล้ว เริ่มใหม่จากบัตรแรก");
+    idx = (next + deck.length) % deck.length;
+    resetFlip();
+    render();
+  }
+  function mark(isKnown) {
+    const w = deck[idx];
+    if (!w) return;
+    if (isKnown) known.add(w.id); else known.delete(w.id);
+    saveKnown();
+    if (prefs.onlyNew && isKnown) {
+      buildDeck("keepPos");
+      if (deck.length) toast(`เหลืออีก ${deck.length} คำ`);
+    } else go(1);
+  }
+
+  /* ---------- events ---------- */
+  let sx = 0, sy = 0, swiped = false;
+  card.addEventListener("pointerdown", (e) => { sx = e.clientX; sy = e.clientY; swiped = false; });
+  card.addEventListener("pointerup", (e) => {
+    const dx = e.clientX - sx, dy = e.clientY - sy;
+    if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) { swiped = true; go(dx < 0 ? 1 : -1); }
+  });
+  card.addEventListener("click", (e) => {
+    const sp = e.target.closest(".speak");
+    if (sp) { speak(sp.dataset.say); return; }
+    if (swiped) { swiped = false; return; }
+    flip();
+  });
+  card.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" && !e.target.closest(".speak")) { e.preventDefault(); flip(); }
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.target.closest("input, textarea") || e.metaKey || e.ctrlKey || e.altKey) return;
+    if (e.target.closest("button") && (e.key === " " || e.key === "Enter")) return;
+    if (e.key === " ") { e.preventDefault(); flip(); }
+    else if (e.key === "ArrowRight") go(1);
+    else if (e.key === "ArrowLeft") go(-1);
+    else if (e.key === "1") mark(false);
+    else if (e.key === "2") mark(true);
+  });
+
+  $("#levels").addEventListener("click", (e) => {
+    const b = e.target.closest(".seg");
+    if (!b) return;
+    prefs.level = b.dataset.level; savePrefs(); buildDeck("reset");
+  });
+  document.querySelectorAll("[data-dir]").forEach((b) => b.addEventListener("click", () => {
+    prefs.dir = b.dataset.dir; savePrefs(); resetFlip(); render();
+  }));
+  $("#optPinyin").addEventListener("click", () => { prefs.pinyin = !prefs.pinyin; savePrefs(); render(); });
+  $("#optNew").addEventListener("click", () => { prefs.onlyNew = !prefs.onlyNew; savePrefs(); buildDeck("keepId"); });
+  $("#optShuffle").addEventListener("click", () => {
+    prefs.shuffle = !prefs.shuffle; savePrefs();
+    if (prefs.shuffle) { rank = new Map(); buildDeck("reset"); toast("สุ่มลำดับบัตรใหม่แล้ว"); }
+    else buildDeck("keepId");
+  });
+  $("#flipBtn").addEventListener("click", flip);
+  $("#prev").addEventListener("click", () => go(-1));
+  $("#next").addEventListener("click", () => go(1));
+  $("#miss").addEventListener("click", () => mark(false));
+  $("#know").addEventListener("click", () => mark(true));
+
+  const qInput = $("#q");
+  qInput.addEventListener("input", () => { query = qInput.value; $("#qClear").hidden = !query; buildDeck("reset"); });
+  $("#qClear").addEventListener("click", () => { qInput.value = ""; query = ""; $("#qClear").hidden = true; buildDeck("reset"); qInput.focus(); });
+  $("#emptyAction").addEventListener("click", (e) => {
+    if (e.currentTarget.dataset.do === "clear") $("#qClear").click();
+    else { prefs.onlyNew = false; savePrefs(); buildDeck("reset"); }
+  });
+
+  let armTimer = 0;
+  $("#reset").addEventListener("click", (e) => {
+    const b = e.currentTarget;
+    const label = prefs.level === "all" ? "ทุกระดับ" : `HSK ${prefs.level}`;
+    if (!b.classList.contains("armed")) {
+      b.classList.add("armed"); b.textContent = `กดอีกครั้งเพื่อล้างสถานะจำได้ของ ${label}`;
+      clearTimeout(armTimer);
+      armTimer = setTimeout(() => { b.classList.remove("armed"); b.textContent = "ล้างสถานะจำได้ของระดับที่เลือก"; }, 3500);
+      return;
+    }
+    clearTimeout(armTimer);
+    ALL.forEach((w) => { if (prefs.level === "all" || w.lv === Number(prefs.level)) known.delete(w.id); });
+    saveKnown();
+    b.classList.remove("armed"); b.textContent = "ล้างสถานะจำได้ของระดับที่เลือก";
+    toast(`ล้างสถานะจำได้ของ ${label} แล้ว`);
+    buildDeck("keepId");
+  });
+
+  /* ---------- load ---------- */
+  async function loadData() {
+    if (Array.isArray(window.HSK_DATA)) return window.HSK_DATA;
+    const r = await fetch("words.json");
+    if (!r.ok) throw new Error("HTTP " + r.status);
+    return r.json();
+  }
+  loadData().then((rows) => {
+    ALL = rows.map(([lv, h, p, t, s, sp, st]) => ({ id: `${lv}|${h}|${p}`, lv, h, p, t, s, sp, st }));
+    const n = (lv) => ALL.filter((w) => w.lv === lv).length;
+    $("#lede").textContent = `${ALL.length} คำ (HSK 1: ${n(1)} · HSK 2: ${n(2)} · HSK 3: ${n(3)}) พร้อมพินอิน คำแปลไทย และประโยคตัวอย่าง`;
+    buildDeck("reset");
+  }).catch(() => {
+    $("#count").textContent = "โหลดคำศัพท์ไม่สำเร็จ ลองรีเฟรชหน้านี้อีกครั้ง";
+  });
+})();
+</script>
+</body>
+</html>

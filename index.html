@@ -1,0 +1,242 @@
+<title>บัตรคำศัพท์ HSK 1–3</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600&family=Noto+Sans:wght@400;500&family=Noto+Serif+SC:wght@500;700&display=swap">
+<style>
+/* Layout: one study column. Level picker, options, progress, a single card with 田字格 practice boxes, then actions. */
+:root{
+  --paper:#F2F5F1; --card:#FFFFFF; --ink:#17231F; --ink-2:#56675F; --line:#D6DFD9;
+  --jade:#1F6F5C; --jade-ink:#FFFFFF; --jade-soft:#E2EFE9;
+  --seal:#B5392A; --seal-soft:#F8E6E2;
+  --grid:#E5B3AA; --grid-edge:#D08E83;
+  --mark:#FBEFC4; --mark-ink:#4F3B00;
+  --shadow:0 1px 2px rgba(23,35,31,.06),0 14px 34px -14px rgba(23,35,31,.22);
+  --f-hanzi:"Noto Serif SC","Songti SC","STSong","SimSun",serif;
+  --f-thai:"IBM Plex Sans Thai","Thonburi","Leelawadee UI","Tahoma",sans-serif;
+  --f-py:"Noto Sans","Helvetica Neue",Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0E1412; --card:#18201D; --ink:#E6EDE9; --ink-2:#9BAEA6; --line:#2B3732;
+    --jade:#62C3A7; --jade-ink:#0B1A15; --jade-soft:#1B3029;
+    --seal:#E8796A; --seal-soft:#371F1B;
+    --grid:#5B3B35; --grid-edge:#7D4C43;
+    --mark:#4A3C10; --mark-ink:#F6E3A4;
+    --shadow:0 1px 2px rgba(0,0,0,.45),0 14px 34px -14px rgba(0,0,0,.7);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0E1412; --card:#18201D; --ink:#E6EDE9; --ink-2:#9BAEA6; --line:#2B3732;
+  --jade:#62C3A7; --jade-ink:#0B1A15; --jade-soft:#1B3029;
+  --seal:#E8796A; --seal-soft:#371F1B;
+  --grid:#5B3B35; --grid-edge:#7D4C43;
+  --mark:#4A3C10; --mark-ink:#F6E3A4;
+  --shadow:0 1px 2px rgba(0,0,0,.45),0 14px 34px -14px rgba(0,0,0,.7);
+  color-scheme:dark;
+}
+[hidden]{display:none!important}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--f-thai);font-size:16px;line-height:1.55}
+button,input{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--jade);outline-offset:2px}
+
+.wrap{max-width:46rem;margin:0 auto;padding-block:1.5rem 3rem;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+  display:flex;flex-direction:column;gap:1.1rem}
+
+header{display:flex;flex-direction:column;gap:.15rem}
+.eyebrow{font-family:var(--f-hanzi);color:var(--seal);font-size:.9rem;letter-spacing:.12em}
+h1{margin:0;font-size:clamp(1.5rem,4.5vw,2rem);line-height:1.2;font-weight:600;text-wrap:balance}
+.lede{margin:0;color:var(--ink-2);font-size:.95rem}
+
+.levels{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.3rem;background:var(--card);
+  border:1px solid var(--line);border-radius:14px;padding:.3rem}
+.seg{border:0;background:transparent;border-radius:10px;padding:.5rem .2rem;cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;gap:.05rem;color:var(--ink-2);min-width:0}
+.seg:hover{background:var(--jade-soft)}
+.seg[aria-pressed="true"]{background:var(--jade);color:var(--jade-ink)}
+.seg-name{font-weight:600;font-size:.95rem;color:inherit}
+.seg[aria-pressed="false"] .seg-name{color:var(--ink)}
+.seg-meta{font-size:.72rem;font-variant-numeric:tabular-nums;white-space:nowrap}
+
+.opts{display:flex;flex-wrap:wrap;gap:.45rem}
+.chip{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:.38rem .85rem;
+  cursor:pointer;font-size:.9rem;display:inline-flex;align-items:center;gap:.4rem}
+.chip:hover{border-color:var(--jade)}
+.chip[aria-pressed="true"]{background:var(--jade-soft);border-color:var(--jade);color:var(--jade);font-weight:500}
+.chip .tick{width:.9rem;height:.9rem;border:1.5px solid currentColor;border-radius:4px;display:inline-grid;place-items:center;opacity:.7}
+.chip[aria-pressed="true"] .tick{background:var(--jade);border-color:var(--jade);opacity:1}
+.chip[aria-pressed="true"] .tick::after{content:"";width:.42rem;height:.22rem;border-left:2px solid var(--jade-ink);border-bottom:2px solid var(--jade-ink);transform:translateY(-1px) rotate(-45deg)}
+.pair{display:inline-flex;border:1px solid var(--line);border-radius:999px;background:var(--card);padding:2px}
+.pair .chip{border:0;padding:.33rem .8rem}
+.pair .chip[aria-pressed="true"]{background:var(--jade);color:var(--jade-ink)}
+
+.search{position:relative}
+.search input{width:100%;box-sizing:border-box;border:1px solid var(--line);background:var(--card);border-radius:12px;
+  padding:.6rem 2.6rem .6rem 2.4rem;font-size:.95rem}
+.search input::placeholder{color:var(--ink-2)}
+.search svg{position:absolute;left:.8rem;top:50%;transform:translateY(-50%);width:1.05rem;height:1.05rem;color:var(--ink-2);pointer-events:none}
+.search .clear{position:absolute;right:.35rem;top:50%;transform:translateY(-50%);border:0;background:transparent;cursor:pointer;
+  color:var(--ink-2);padding:.35rem .55rem;border-radius:8px;font-size:.85rem}
+.search .clear:hover{background:var(--jade-soft)}
+
+.progress{display:flex;flex-direction:column;gap:.4rem}
+.progress-row{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;font-size:.9rem;color:var(--ink-2)}
+#count{font-variant-numeric:tabular-nums;color:var(--ink);font-weight:500}
+.keys{font-size:.78rem}
+.keys kbd,.btn kbd{font-family:var(--f-py);font-size:.72rem;border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:0 .35rem;background:var(--card);color:var(--ink-2)}
+.track{height:4px;background:var(--line);border-radius:4px;overflow:hidden}
+#bar{height:100%;background:var(--jade);width:0;transition:width .25s ease}
+
+.scene{perspective:1600px}
+.card{display:grid;position:relative;transform-style:preserve-3d;transition:transform .55s cubic-bezier(.2,.75,.25,1);
+  cursor:pointer;touch-action:pan-y;user-select:none;-webkit-user-select:none;border-radius:20px}
+.card.no-anim{transition:none}
+.card.flipped{transform:rotateY(180deg)}
+.face{grid-area:1/1;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:var(--card);
+  border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);min-height:24rem;box-sizing:border-box;
+  padding:clamp(1.1rem,4vw,1.75rem);display:flex;flex-direction:column;gap:1rem;min-width:0}
+.back{transform:rotateY(180deg)}
+.face-top{display:flex;justify-content:space-between;align-items:center;gap:.5rem;min-height:1.6rem}
+.stamp{font-family:var(--f-py);font-weight:500;font-size:.74rem;letter-spacing:.08em;color:var(--seal);
+  border:1.5px solid var(--seal);border-radius:4px;padding:.12rem .45rem;transform:rotate(-3deg)}
+.known-tag{font-size:.75rem;color:var(--jade);background:var(--jade-soft);padding:.12rem .6rem;border-radius:999px}
+.face-main{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;min-width:0}
+.face-foot{display:flex;align-items:center;justify-content:center;gap:.6rem;flex-wrap:wrap}
+.hint{font-size:.82rem;color:var(--ink-2)}
+
+.tzg{display:flex;justify-content:center;align-items:center;gap:.5rem;width:100%}
+.tzg .box{position:relative;flex:0 1 auto;min-width:0;aspect-ratio:1;container-type:inline-size;
+  width:min(var(--bx),calc((100% - (var(--n) - 1) * .5rem) / var(--n)));
+  border:1.5px solid var(--grid-edge);display:grid;place-items:center;box-sizing:border-box}
+.tzg .box::before{content:"";position:absolute;left:50%;top:0;bottom:0;border-left:1px dashed var(--grid)}
+.tzg .box::after{content:"";position:absolute;top:50%;left:0;right:0;border-top:1px dashed var(--grid)}
+.tzg .ch{position:relative;z-index:1;font-family:var(--f-hanzi);font-weight:500;line-height:1;font-size:3.5rem;font-size:72cqi}
+.tzg .dots{font-family:var(--f-hanzi);color:var(--ink-2);font-size:1.6rem;flex:none}
+.py-big{margin:0;font-family:var(--f-py);font-size:1.55rem;color:var(--jade);letter-spacing:.02em;text-align:center}
+.th-big{margin:0;font-size:clamp(1.6rem,5.5vw,2.3rem);font-weight:600;text-align:center;text-wrap:balance;line-height:1.35}
+
+.back-word{display:flex;align-items:baseline;flex-wrap:wrap;gap:.35rem .8rem}
+.hz-mid{font-family:var(--f-hanzi);font-weight:700;font-size:2.3rem;line-height:1.15}
+.py-mid{font-family:var(--f-py);font-size:1.15rem;color:var(--jade)}
+.th-mean{margin:0;font-size:1.3rem;font-weight:600;line-height:1.4}
+.ex{border-top:1px dashed var(--line);padding-top:.9rem;display:flex;flex-direction:column;gap:.3rem;margin-top:auto}
+.ex-label{display:flex;align-items:center;gap:.4rem;font-size:.78rem;color:var(--ink-2);letter-spacing:.04em}
+.ex-zh{margin:0;font-family:var(--f-hanzi);font-size:1.4rem;line-height:1.65;font-weight:500}
+.ex-zh mark{background:var(--mark);color:var(--mark-ink);border-radius:3px;padding:0 .08em}
+.ex-py{margin:0;font-family:var(--f-py);font-size:.95rem;color:var(--ink-2)}
+.ex-th{margin:0;font-size:1.02rem}
+
+.speak{display:none;align-items:center;gap:.35rem;border:1px solid var(--line);background:var(--card);color:var(--jade);
+  border-radius:999px;padding:.28rem .7rem;cursor:pointer;font-size:.8rem}
+.speak svg{width:1rem;height:1rem}
+.speak:hover{border-color:var(--jade);background:var(--jade-soft)}
+.can-speak .speak{display:inline-flex}
+.ex-label .speak{padding:.15rem .5rem}
+
+.actions{display:flex;flex-direction:column;gap:.55rem}
+.row{display:grid;gap:.55rem}
+.row.nav{grid-template-columns:1fr 1.4fr 1fr}
+.row.marks{grid-template-columns:1fr 1fr}
+.btn{border:1px solid var(--line);background:var(--card);border-radius:12px;padding:.72rem .8rem;cursor:pointer;
+  display:inline-flex;align-items:center;justify-content:center;gap:.45rem;font-weight:500;min-width:0}
+.btn:hover{border-color:var(--jade)}
+.btn-flip{border-color:var(--jade);color:var(--jade)}
+.btn-miss{background:var(--seal-soft);border-color:transparent;color:var(--seal)}
+.btn-miss:hover{border-color:var(--seal)}
+.btn-know{background:var(--jade);border-color:var(--jade);color:var(--jade-ink)}
+.btn-know:hover{filter:brightness(1.08)}
+.btn-miss kbd,.btn-know kbd{background:transparent;color:inherit;border-color:currentColor;opacity:.7}
+
+.empty{background:var(--card);border:1px dashed var(--line);border-radius:20px;padding:2.5rem 1.25rem;text-align:center;
+  display:flex;flex-direction:column;align-items:center;gap:.8rem}
+.empty p{margin:0;color:var(--ink-2)}
+.empty .big{font-size:1.15rem;color:var(--ink);font-weight:600}
+
+footer{display:flex;flex-direction:column;gap:.6rem;font-size:.82rem;color:var(--ink-2);border-top:1px solid var(--line);padding-top:1rem}
+footer p{margin:0;max-width:65ch}
+.linkbtn{align-self:flex-start;border:1px solid var(--line);background:transparent;border-radius:999px;padding:.3rem .8rem;cursor:pointer;color:var(--ink-2);font-size:.8rem}
+.linkbtn.armed{border-color:var(--seal);color:var(--seal)}
+
+.toast{position:fixed;left:50%;bottom:calc(1.25rem + env(safe-area-inset-bottom,0px));transform:translateX(-50%);
+  background:var(--ink);color:var(--paper);padding:.55rem 1rem;border-radius:999px;font-size:.88rem;z-index:20;
+  max-width:calc(100% - 32px);text-align:center;box-shadow:var(--shadow)}
+
+@media (hover:none),(max-width:560px){.keys,.btn kbd{display:none}}
+@media (max-width:420px){
+  .face{min-height:21rem}
+  .seg-name{font-size:.88rem}
+  .row.nav{grid-template-columns:1fr 1.2fr 1fr}
+}
+@media (prefers-reduced-motion:reduce){.card{transition:none}#bar{transition:none}}
+</style>
+
+<div class="wrap">
+  <header>
+    <span class="eyebrow" lang="zh-CN">汉语水平考试 · 一级至三级</span>
+    <h1>บัตรคำศัพท์ HSK 1–3</h1>
+    <p class="lede" id="lede">คำศัพท์ภาษาจีนพร้อมพินอิน คำแปลไทย และประโยคตัวอย่าง</p>
+  </header>
+
+  <div class="levels" id="levels" role="group" aria-label="เลือกระดับ"></div>
+
+  <div class="opts">
+    <span class="pair" role="group" aria-label="ด้านหน้าบัตร">
+      <button type="button" class="chip" id="dirZh" data-dir="zh">จีน → ไทย</button>
+      <button type="button" class="chip" id="dirTh" data-dir="th">ไทย → จีน</button>
+    </span>
+    <button type="button" class="chip" id="optPinyin"><span class="tick"></span>พินอินด้านหน้า</button>
+    <button type="button" class="chip" id="optNew"><span class="tick"></span>เฉพาะคำที่ยังไม่แม่น</button>
+    <button type="button" class="chip" id="optShuffle"><span class="tick"></span>สุ่มลำดับ</button>
+  </div>
+
+  <div class="search">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+    <input id="q" type="search" placeholder="ค้นหาด้วยตัวจีน พินอิน หรือคำไทย" autocomplete="off" aria-label="ค้นหาคำศัพท์">
+    <button type="button" class="clear" id="qClear" hidden>ล้าง</button>
+  </div>
+
+  <div class="progress">
+    <div class="progress-row">
+      <span id="count">กำลังโหลดคำศัพท์…</span>
+      <span class="keys"><kbd>Space</kbd> พลิก · <kbd>←</kbd> <kbd>→</kbd> เปลี่ยนบัตร</span>
+    </div>
+    <div class="track"><div id="bar"></div></div>
+  </div>
+
+  <div class="scene" id="scene" hidden>
+    <div class="card" id="card" role="button" tabindex="0" aria-label="บัตรคำ แตะเพื่อพลิก">
+      <div class="face front" id="front"></div>
+      <div class="face back" id="back"></div>
+    </div>
+  </div>
+
+  <div class="empty" id="empty" hidden>
+    <p class="big" id="emptyBig"></p>
+    <p id="emptyMsg"></p>
+    <button type="button" class="btn" id="emptyAction" hidden></button>
+  </div>
+
+  <div class="actions" id="actions" hidden>
+    <div class="row nav">
+      <button type="button" class="btn" id="prev" aria-label="บัตรก่อนหน้า">← ก่อนหน้า</button>
+      <button type="button" class="btn btn-flip" id="flipBtn">ดูเฉลย</button>
+      <button type="button" class="btn" id="next" aria-label="บัตรถัดไป">ถัดไป →</button>
+    </div>
+    <div class="row marks">
+      <button type="button" class="btn btn-miss" id="miss"><kbd>1</kbd> ยังไม่แม่น</button>
+      <button type="button" class="btn btn-know" id="know"><kbd>2</kbd> จำได้แล้ว</button>
+    </div>
+  </div>
+
+  <footer>
+    <p>อ้างอิงรายการคำศัพท์ HSK มาตรฐานเดิม (HSK 2.0) ระดับ 1–3 ประโยคตัวอย่างและคำแปลไทยเรียบเรียงขึ้นสำหรับชุดนี้ ปุ่มฟังเสียงจะแสดงเมื่อเครื่องของคุณมีเสียงอ่านภาษาจีน</p>
+    <p>สถานะ “จำได้แล้ว” บันทึกไว้ในเบราว์เซอร์นี้เท่านั้น</p>
+    <button type="button" class="linkbtn" id="reset">ล้างสถานะจำได้ของระดับที่เลือก</button>
+  </footer>
+</div>
+<div class="toast" id="toast" role="status" hidden></div>
+
+<!--HSK_DATA-->
+<script src="app.js"></script>
