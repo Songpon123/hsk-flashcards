@@ -1,0 +1,71 @@
+干净|gānjìng|clean|Your room is really clean!|แห้ง + สะอาด|"dry + clean"
+感冒|gǎnmào|to catch a cold; a cold|I have a cold, so I'm not going to work today.|รู้สึก/ได้รับ + ปะทะ|"catch + come into contact"
+感兴趣|gǎn xìngqù|to be interested|I'm very interested in Chinese culture.|รู้สึก + ความสนใจ|"feel + interest"
+刚才|gāngcái|just now|Someone called you just now.|เพิ่ง + เพิ่งจะ|"just + only just"
+个子|gèzi|height, build|He's not tall, but he plays basketball really well.|ตัว + คำเติมท้ายนาม|"size" + noun suffix
+根据|gēnjù|according to|According to the forecast, it'll rain tomorrow.|ราก + อาศัย|"root + rely on"
+跟|gēn|with; to follow|Come along with me.||
+更|gèng|even more|Today is even colder than yesterday.||
+公斤|gōngjīn|kilogram|This watermelon weighs five kilograms.|มาตรฐาน + ชั่ง (斤 = ครึ่งกิโล)|"standard" + jin (half a kilo)
+公园|gōngyuán|park|Lots of people go to the park on weekends.|สาธารณะ + สวน|"public + garden"
+故事|gùshi|story|Grandma told me a story.|เก่า + เรื่อง|"old + matter"
+刮风|guā fēng|to be windy|It's windy outside, put on more clothes.|ขูด/พัด + ลม|"scrape + wind"
+关|guān|to close, turn off|Don't forget to turn off the lights when you go out.||
+关系|guānxi|relationship|The two of us get along very well.|ข้อต่อ + ผูก|"joint + tie"
+关心|guānxīn|to care about|Thanks for your concern.|เกี่ยวข้อง + ใจ|"concern + heart"
+关于|guānyú|about, concerning|This is a book about Chinese history.|เกี่ยวข้อง + กับ|"concern + to"
+国家|guójiā|country|How many countries have you been to?|ประเทศ + บ้าน|"state + home"
+过|guò|to pass, cross; to spend (time)|Be careful when crossing the road.||
+过去|guòqù|the past; to go over|Don't dwell on the past.|ผ่าน + ไป|"pass + go"
+还是|háishi|or (in questions); still|Do you want tea or coffee?|ยัง + เป็น|"still + be"
+害怕|hàipà|to be afraid|My little sister is afraid of dogs.|เป็นภัย + กลัว|"harm + fear"
+河|hé|river|There are lots of trees by the river.||
+黑板|hēibǎn|blackboard|The teacher is writing on the blackboard.|ดำ + แผ่นกระดาน|"black + board"
+后来|hòulái|later, afterwards|We used to be classmates, and later we became good friends.|หลัง + มา|"after + come"
+护照|hùzhào|passport|You need your passport to go abroad.|คุ้มครอง + ใบรับรอง|"protect + certificate"
+花|huā|flower; to spend (money, time)|I spent a lot of money this month.||
+画|huà|to draw, paint; painting|She paints very well.||
+坏|huài|bad; broken|My phone is broken.||
+还|huán|to give back, return|I'll return this book to you tomorrow.||
+环境|huánjìng|environment, surroundings|The environment here is very nice.|ล้อมรอบ + เขตแดน|"surround + boundary"
+换|huàn|to change, exchange|I'd like to change to a bigger one.||
+黄河|Huáng Hé|Yellow River|The Yellow River is China's second-longest river.|เหลือง + แม่น้ำ (น้ำมีตะกอนสีเหลือง)|"yellow river" (yellow with silt)
+会议|huìyì|meeting|There's a meeting at three this afternoon.|พบปะ + หารือ|"meet + discuss"
+或者|huòzhě|or|You can take the subway or the bus.|หรือ + คำเสริม|"or" + particle
+几乎|jīhū|almost|I drink coffee almost every day.|เกือบ + คำเสริม|"nearly" + particle
+机会|jīhuì|opportunity|This is a great opportunity.|จังหวะ + พบ|"moment + meet"
+极|jí|extremely|This dish is extremely tasty!||
+记得|jìde|to remember|Do you still remember me?|จำ + ได้|"remember + get"
+季节|jìjié|season|Which season do you like most?|ฤดู + ช่วง/ข้อ|"season + node"
+检查|jiǎnchá|to check, examine|The doctor gave me a checkup.|ตรวจ + สอบ|"inspect + examine"
+简单|jiǎndān|simple|This question is very simple.|ง่าย + เดี่ยว|"brief + single"
+见面|jiànmiàn|to meet (face to face)|Where shall we meet tomorrow?|พบ + หน้า|"see + face"
+健康|jiànkāng|healthy; health|Wishing you good health!|แข็งแรง + สบาย|"strong + well"
+讲|jiǎng|to speak, explain, tell|The teacher explains very clearly.||
+教|jiāo|to teach|She teaches us Chinese.||
+角|jiǎo|jiao (1/10 yuan); corner, angle|One egg costs fifty fen (five jiao).||
+脚|jiǎo|foot|My foot hurts a lot.||
+接|jiē|to pick up, meet; to receive|I'll pick you up at the airport.||
+街道|jiēdào|street|This street is very clean.|ถนน + ทาง|"street + road"
+节目|jiémù|program, show|This TV program is very interesting.|ข้อ/ตอน + รายการ|"section + item"
+节日|jiérì|festival, holiday|Spring Festival is China's most important holiday.|เทศกาล + วัน|"festival + day"
+结婚|jiéhūn|to get married|They're getting married next year.|ผูก + การสมรส|"tie + marriage"
+结束|jiéshù|to end, finish|What time does the meeting end?|ผูก + มัด|"tie + bind"
+解决|jiějué|to solve|This problem is hard to solve.|แก้ + ตัดสิน|"untie + decide"
+借|jiè|to borrow, lend|Can I borrow your pen?||
+经常|jīngcháng|often|I often eat at that restaurant.|ผ่าน + เป็นประจำ|"through + constant"
+经过|jīngguò|to pass by, go through|I pass this park every day on my way to work.|ผ่าน + ข้าม|"through + pass"
+经理|jīnglǐ|manager|He's the manager of our company.|ดำเนิน + จัดการ|"run + manage"
+久|jiǔ|long (time)|Long time no see!||
+旧|jiù|old, used|This piece of clothing is too old.||
+句子|jùzi|sentence|Please make a sentence with this word.|ประโยค + คำเติมท้ายนาม|"sentence" + noun suffix
+决定|juédìng|to decide; decision|I've decided to go study in China next year.|ตัดสิน + กำหนด|"decide + settle"
+可爱|kě'ài|cute, lovely|This puppy is really cute.|ควร + รัก → น่ารัก|"worthy of + love"
+渴|kě|thirsty|I'm thirsty, I want some water.||
+刻|kè|quarter (of an hour)|It's a quarter past eight.||
+客人|kèrén|guest|We had lots of guests at home today.|แขก + คน|"guest + person"
+空调|kōngtiáo|air conditioner|It's too hot, turn on the AC.|อากาศ + ปรับ|"air + adjust"
+口|kǒu|mouth; measure word for family members|There are five people in my family.||
+哭|kū|to cry|Why is the child crying?||
+裤子|kùzi|trousers, pants|These pants are a bit long.|กางเกง + คำเติมท้ายนาม|"trousers" + noun suffix
+筷子|kuàizi|chopsticks|Can you use chopsticks?|ตะเกียบ + คำเติมท้ายนาม|"chopstick" + noun suffix
