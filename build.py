@@ -2,6 +2,7 @@
 
 src/hsk*.txt         hanzi|pinyin|thai|sentence|sentence pinyin|sentence thai
 src/extra/hsk*.txt   hanzi|pinyin|english|sentence english|literal thai|literal english
+src/extra/stories.txt  hanzi|pinyin|word history thai|word history english (only words with a story)
 src/chars/c*.txt     character|thai meaning|thai origin note (for pictographs and combined meanings)
 src/chars/meaning-parts.txt          meaning part|dictionary hint|thai
 src/chars/makemeahanzi-subset.jsonl  structure data from Make Me a Hanzi (LGPL-3.0-or-later)
@@ -36,13 +37,17 @@ for path in sorted((SRC / "extra").glob("hsk*.txt")):
     for h, p, en, sen, lit_th, lit_en in rows(path, 6):
         extra[(h, p)] = [en, sen, lit_th, lit_en]
 
+stories = {(h, p): [th, en] for h, p, th, en in rows(SRC / "extra" / "stories.txt", 4)}
+
 words = []
 for path in sorted(SRC.glob("hsk*.txt")):
     level = int(path.stem[3])
     for h, p, t, s, sp, st in rows(path, 6):
         if (h, p) not in extra:
             raise SystemExit(f"no English row for {h} {p}")
-        words.append([level, h, p, t, s, sp, st, *extra[(h, p)]])
+        words.append([level, h, p, t, s, sp, st, *extra[(h, p)], *stories.pop((h, p), ["", ""])])
+if stories:
+    raise SystemExit(f"stories for words not in the list: {sorted(stories)}")
 
 # ---------- characters ----------
 mmah = {}

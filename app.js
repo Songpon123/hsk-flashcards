@@ -40,7 +40,7 @@
       listen: "ฟังเสียงภาษาจีน", listenWord: "ฟังเสียงคำนี้", listenSentence: "ฟังเสียงประโยคตัวอย่าง",
       reveal: "ดูเฉลย", hide: "ซ่อนเฉลย", prev: "← ก่อนหน้า", next: "ถัดไป →",
       miss: "ยังไม่แม่น", know: "จำได้แล้ว", knownTag: "จำได้แล้ว",
-      origin: "ที่มาและความหมาย", literal: "ความหมายตามตัว", byChar: "แยกทีละตัวอักษร",
+      origin: "ที่มาและความหมาย", literal: "ความหมายตามตัว", story: "เรื่องเล่าที่มาของคำ", byChar: "แยกทีละตัวอักษร",
       kindP: "ส่วนความหมาย + ส่วนเสียง", kindI: "อักษรรวมความหมาย", kindG: "อักษรภาพ", kindN: "ส่วนประกอบ",
       meaningPart: "ความหมาย", soundPart: "เสียง", noOrigin: "ไม่มีข้อมูลที่มาของตัวอักษรนี้ในพจนานุกรม",
       credit: "โครงสร้างตัวอักษรจาก Make Me a Hanzi",
@@ -70,7 +70,7 @@
       listen: "Listen in Mandarin", listenWord: "Listen to this word", listenSentence: "Listen to the example sentence",
       reveal: "Reveal answer", hide: "Hide answer", prev: "← Previous", next: "Next →",
       miss: "Still learning", know: "I know it", knownTag: "Known",
-      origin: "Origin & meaning", literal: "Literally", byChar: "Character by character",
+      origin: "Origin & meaning", literal: "Literally", story: "Word history", byChar: "Character by character",
       kindP: "Meaning part + sound part", kindI: "Combined meanings", kindG: "Pictograph", kindN: "Parts",
       meaningPart: "meaning", soundPart: "sound", noOrigin: "No origin data for this character in the dictionary",
       credit: "Character structure from Make Me a Hanzi",
@@ -167,6 +167,7 @@
   const otherMeaning = (w) => (prefs.lang === "th" ? w.en : w.t);
   const translation = (w) => (prefs.lang === "th" ? w.st : w.sen);
   const literal = (w) => (prefs.lang === "th" ? w.litTh : w.litEn);
+  const story = (w) => (prefs.lang === "th" ? w.storyTh : w.storyEn);
 
   function tzg(h, small) {
     const chars = [...h];
@@ -219,9 +220,10 @@
   }
   function originHTML(w) {
     const uniq = [...new Set([...w.h].filter((c) => c !== "…"))];
-    const lit = literal(w);
+    const lit = literal(w), tale = story(w);
     return `<details class="origin"${prefs.originOpen ? " open" : ""}><summary>${L.origin}</summary>` +
       (lit ? `<p class="lit"><span class="lit-label">${L.literal}</span><span>${hz(esc(lit))}</span></p>` : "") +
+      (tale ? `<div class="story"><span class="story-label">${L.story}</span><p>${hz(esc(tale))}</p></div>` : "") +
       (uniq.length > 1 ? `<p class="by-char">${L.byChar}</p>` : "") +
       `<div class="ch-grid">${uniq.map(charTile).join("")}</div>` +
       `<p class="origin-credit">${L.credit}</p></details>`;
@@ -405,7 +407,8 @@
   $("#count").textContent = L.loading;
   Promise.all([getJSON(window.HSK_DATA, "words.json"), getJSON(window.HSK_CHARS, "chars.json")]).then(([rows, chars]) => {
     CHARS = chars;
-    ALL = rows.map(([lv, h, p, t, s, sp, st, en, sen, litTh, litEn]) => ({ id: `${lv}|${h}|${p}`, lv, h, p, t, s, sp, st, en, sen, litTh, litEn }));
+    ALL = rows.map(([lv, h, p, t, s, sp, st, en, sen, litTh, litEn, storyTh, storyEn]) =>
+      ({ id: `${lv}|${h}|${p}`, lv, h, p, t, s, sp, st, en, sen, litTh, litEn, storyTh, storyEn }));
     updateLede();
     buildDeck("reset");
   }).catch(() => {
